@@ -12,8 +12,13 @@ Download the training dataset from the following link.
 
 Download the test dataset from the following link.
 
+  4KID and O-HAZE and RESIDE-OTS:
+
 - https://pan.baidu.com/s/1z1ZIrjIHtK-Fui-umjqVdQ?pwd=raqe 提取码: raqe
 
+BeDDE:
+
+- https://drive.usercontent.google.com/uc?id=12p-MY2ZygT5Tl8q0oFxDIUg9B5Jn042-&export=download
 
 
 ## Model Training
