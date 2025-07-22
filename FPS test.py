@@ -1,17 +1,17 @@
 import os
 import argparse
 from collections import OrderedDict
-import time  # 导入 time 模块用于计时
+import time  # 导入 time 
 
 import torch
 from PIL import Image
 import torchvision.transforms as transforms
-from models.CSDehazeNet import CSDehaze  # 假设这是你的模型定义位置
+from models.CSDehazeNet import CSDehaze  
 
 # 解析命令行参数
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', default='CSDehaze', type=str, help='模型名称')
-parser.add_argument('--data_dir', default='D:/extracted_images', type=str, help='待推理的图像目录')
+parser.add_argument('--data_dir', default='./hazy', type=str, help='待推理的图像目录')
 parser.add_argument('--save_dir', default='./saved_models/', type=str, help='保存模型权重的目录')
 parser.add_argument('--result_dir', default='./out/', type=str, help='保存推理结果的目录')
 args = parser.parse_args()
@@ -22,7 +22,7 @@ def single(save_dir):
     state_dict = torch.load(save_dir, map_location=torch.device('cpu'))['state_dict']
     new_state_dict = OrderedDict()
     for k, v in state_dict.items():
-        name = k[7:] if k.startswith('module.') else k  # 移除可能存在的 `module.` 前缀
+        name = k[7:] if k.startswith('module.') else k  
         new_state_dict[name] = v
     return new_state_dict
 
@@ -31,15 +31,15 @@ def preprocess_image(image_path):
     """图像预处理"""
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  # 根据您的数据调整
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))  
     ])
     image = Image.open(image_path).convert("RGB")
-    return transform(image).unsqueeze(0)  # 添加 batch 维度
+    return transform(image).unsqueeze(0)  
 
 
 def postprocess_output(output_tensor):
     """输出后处理"""
-    img = output_tensor.squeeze(0).detach()  # 移除 batch 维度
+    img = output_tensor.squeeze(0).detach()  
     img = img * 0.5 + 0.5  # 反归一化
     return transforms.ToPILImage()(img)
 
