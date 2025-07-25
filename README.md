@@ -31,7 +31,7 @@ Create a new data folderin the project root directory, and create train and test
 
 ## Model Inference
 
-Put the test set into the test of data.
+Create a new folder hazy in the project root directory and put the data set to be tested into.
    ```bash
    Run test.py
    ```
